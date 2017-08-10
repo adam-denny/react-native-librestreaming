@@ -1,0 +1,95 @@
+{
+  "_args": [
+    [
+      {
+        "raw": "https://github.com/damly/react-native-vunun-live.git",
+        "scope": null,
+        "escapedName": null,
+        "name": null,
+        "rawSpec": "https://github.com/damly/react-native-vunun-live.git",
+        "spec": "git+https://github.com/damly/react-native-vunun-live.git",
+        "type": "hosted",
+        "hosted": {
+          "type": "github",
+          "ssh": "git@github.com:damly/react-native-vunun-live.git",
+          "sshUrl": "git+ssh://git@github.com/damly/react-native-vunun-live.git",
+          "httpsUrl": "git+https://github.com/damly/react-native-vunun-live.git",
+          "gitUrl": "git://github.com/damly/react-native-vunun-live.git",
+          "shortcut": "github:damly/react-native-vunun-live",
+          "directUrl": "https://raw.githubusercontent.com/damly/react-native-vunun-live/master/package.json"
+        }
+      },
+      "/Users/adam/RNBroadcaster"
+    ]
+  ],
+  "_from": "git+https://github.com/damly/react-native-vunun-live.git",
+  "_id": "react-native-vunun-live@1.0.5",
+  "_inCache": true,
+  "_location": "/react-native-vunun-live",
+  "_phantomChildren": {},
+  "_requested": {
+    "raw": "https://github.com/damly/react-native-vunun-live.git",
+    "scope": null,
+    "escapedName": null,
+    "name": null,
+    "rawSpec": "https://github.com/damly/react-native-vunun-live.git",
+    "spec": "git+https://github.com/damly/react-native-vunun-live.git",
+    "type": "hosted",
+    "hosted": {
+      "type": "github",
+      "ssh": "git@github.com:damly/react-native-vunun-live.git",
+      "sshUrl": "git+ssh://git@github.com/damly/react-native-vunun-live.git",
+      "httpsUrl": "git+https://github.com/damly/react-native-vunun-live.git",
+      "gitUrl": "git://github.com/damly/react-native-vunun-live.git",
+      "shortcut": "github:damly/react-native-vunun-live",
+      "directUrl": "https://raw.githubusercontent.com/damly/react-native-vunun-live/master/package.json"
+    }
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "git+https://github.com/damly/react-native-vunun-live.git#8481384080ff164084edbf69ef7488d176539708",
+  "_shasum": "42cf8d66777f3166c7ea4eb3c46dbb95e5305eb9",
+  "_shrinkwrap": null,
+  "_spec": "https://github.com/damly/react-native-vunun-live.git",
+  "_where": "/Users/adam/RNBroadcaster",
+  "author": {
+    "name": "damly"
+  },
+  "bugs": {
+    "url": "https://github.com/damly/react-native-vunun-live/issues"
+  },
+  "dependencies": {},
+  "description": "react native live",
+  "devDependencies": {},
+  "gitHead": "8481384080ff164084edbf69ef7488d176539708",
+  "homepage": "https://github.com/damly/react-native-vunun-live#readme",
+  "keywords": [
+    "rtmp live stream",
+    "live"
+  ],
+  "license": "LGPL-3.0",
+  "main": "index.js",
+  "name": "react-native-vunun-live",
+  "nativePackage": true,
+  "optionalDependencies": {},
+  "readme": "\nnpm install react-native-vunun-live —save\nrnpm link\n",
+  "readmeFilename": "README.md",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/damly/react-native-vunun-live.git"
+  },
+  "rnpm": {
+    "android": {
+      "packageInstance": "new RTCLivePackage()"
+    },
+    "ios": {
+      "project": "ios/RNVideoCore.xcodeproj"
+    }
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "version": "1.0.5"
+}

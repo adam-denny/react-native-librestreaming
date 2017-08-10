@@ -1,0 +1,66 @@
+[
+    {
+        "merged": "/Users/adam/RNBroadcaster/node_modules/react-native-vunun-live/android/build/intermediates/res/merged/release/anim/abc_grow_fade_in_from_bottom.xml",
+        "source": "/Users/adam/.android/build-cache/9d752845663d20541bac87e307c018ef1b02c4a0/output/res/anim/abc_grow_fade_in_from_bottom.xml"
+    },
+    {
+        "merged": "/Users/adam/RNBroadcaster/node_modules/react-native-vunun-live/android/build/intermediates/res/merged/release/anim/abc_fade_out.xml",
+        "source": "/Users/adam/.android/build-cache/9d752845663d20541bac87e307c018ef1b02c4a0/output/res/anim/abc_fade_out.xml"
+    },
+    {
+        "merged": "/Users/adam/RNBroadcaster/node_modules/react-native-vunun-live/android/build/intermediates/res/merged/release/anim/abc_slide_out_top.xml",
+        "source": "/Users/adam/.android/build-cache/9d752845663d20541bac87e307c018ef1b02c4a0/output/res/anim/abc_slide_out_top.xml"
+    },
+    {
+        "merged": "/Users/adam/RNBroadcaster/node_modules/react-native-vunun-live/android/build/intermediates/res/merged/release/anim/fade_out.xml",
+        "source": "/Users/adam/.android/build-cache/e73ae6e94f6ed246b0c74d091fe129cab3caba91/output/res/anim/fade_out.xml"
+    },
+    {
+        "merged": "/Users/adam/RNBroadcaster/node_modules/react-native-vunun-live/android/build/intermediates/res/merged/release/anim/abc_slide_in_top.xml",
+        "source": "/Users/adam/.android/build-cache/9d752845663d20541bac87e307c018ef1b02c4a0/output/res/anim/abc_slide_in_top.xml"
+    },
+    {
+        "merged": "/Users/adam/RNBroadcaster/node_modules/react-native-vunun-live/android/build/intermediates/res/merged/release/anim/slide_down.xml",
+        "source": "/Users/adam/.android/build-cache/e73ae6e94f6ed246b0c74d091fe129cab3caba91/output/res/anim/slide_down.xml"
+    },
+    {
+        "merged": "/Users/adam/RNBroadcaster/node_modules/react-native-vunun-live/android/build/intermediates/res/merged/release/anim/abc_slide_in_bottom.xml",
+        "source": "/Users/adam/.android/build-cache/9d752845663d20541bac87e307c018ef1b02c4a0/output/res/anim/abc_slide_in_bottom.xml"
+    },
+    {
+        "merged": "/Users/adam/RNBroadcaster/node_modules/react-native-vunun-live/android/build/intermediates/res/merged/release/anim/abc_shrink_fade_out_from_bottom.xml",
+        "source": "/Users/adam/.android/build-cache/9d752845663d20541bac87e307c018ef1b02c4a0/output/res/anim/abc_shrink_fade_out_from_bottom.xml"
+    },
+    {
+        "merged": "/Users/adam/RNBroadcaster/node_modules/react-native-vunun-live/android/build/intermediates/res/merged/release/anim/catalyst_push_up_out.xml",
+        "source": "/Users/adam/.android/build-cache/e73ae6e94f6ed246b0c74d091fe129cab3caba91/output/res/anim/catalyst_push_up_out.xml"
+    },
+    {
+        "merged": "/Users/adam/RNBroadcaster/node_modules/react-native-vunun-live/android/build/intermediates/res/merged/release/anim/abc_popup_exit.xml",
+        "source": "/Users/adam/.android/build-cache/9d752845663d20541bac87e307c018ef1b02c4a0/output/res/anim/abc_popup_exit.xml"
+    },
+    {
+        "merged": "/Users/adam/RNBroadcaster/node_modules/react-native-vunun-live/android/build/intermediates/res/merged/release/anim/slide_up.xml",
+        "source": "/Users/adam/.android/build-cache/e73ae6e94f6ed246b0c74d091fe129cab3caba91/output/res/anim/slide_up.xml"
+    },
+    {
+        "merged": "/Users/adam/RNBroadcaster/node_modules/react-native-vunun-live/android/build/intermediates/res/merged/release/anim/abc_fade_in.xml",
+        "source": "/Users/adam/.android/build-cache/9d752845663d20541bac87e307c018ef1b02c4a0/output/res/anim/abc_fade_in.xml"
+    },
+    {
+        "merged": "/Users/adam/RNBroadcaster/node_modules/react-native-vunun-live/android/build/intermediates/res/merged/release/anim/catalyst_push_up_in.xml",
+        "source": "/Users/adam/.android/build-cache/e73ae6e94f6ed246b0c74d091fe129cab3caba91/output/res/anim/catalyst_push_up_in.xml"
+    },
+    {
+        "merged": "/Users/adam/RNBroadcaster/node_modules/react-native-vunun-live/android/build/intermediates/res/merged/release/anim/abc_popup_enter.xml",
+        "source": "/Users/adam/.android/build-cache/9d752845663d20541bac87e307c018ef1b02c4a0/output/res/anim/abc_popup_enter.xml"
+    },
+    {
+        "merged": "/Users/adam/RNBroadcaster/node_modules/react-native-vunun-live/android/build/intermediates/res/merged/release/anim/abc_slide_out_bottom.xml",
+        "source": "/Users/adam/.android/build-cache/9d752845663d20541bac87e307c018ef1b02c4a0/output/res/anim/abc_slide_out_bottom.xml"
+    },
+    {
+        "merged": "/Users/adam/RNBroadcaster/node_modules/react-native-vunun-live/android/build/intermediates/res/merged/release/anim/fade_in.xml",
+        "source": "/Users/adam/.android/build-cache/e73ae6e94f6ed246b0c74d091fe129cab3caba91/output/res/anim/fade_in.xml"
+    }
+]
