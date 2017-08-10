@@ -87,7 +87,8 @@ LiveView.propTypes = {
     streamKey:PropTypes.string,
     orientation:PropTypes.string,
     quality:PropTypes.string,
-    camera:PropTypes.string
+    camera:PropTypes.string,
+	color:PropTypes.object
 };
 
 if (Platform.OS === 'android') {

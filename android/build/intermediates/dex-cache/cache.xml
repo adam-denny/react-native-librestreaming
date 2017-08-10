@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        is-multidex="false"
+        jar="/Users/adam/.gradle/caches/modules-2/files-2.1/com.squareup.okhttp3/okhttp-urlconnection/3.6.0/3f9b16b774f2c36cfd86dd2053d0b3059531dacc/okhttp-urlconnection-3.6.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="3f9b16b774f2c36cfd86dd2053d0b3059531dacc">
+        <dex dex="/Users/adam/RNBroadcaster/android/app/build/intermediates/pre-dexed/debug/okhttp-urlconnection-3.6.0_b5047e7cedeff0c6396190aa28792420b0ac2ede.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/adam/.android/build-cache/e73ae6e94f6ed246b0c74d091fe129cab3caba91/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="c5526d30278eb171f4a1325bd6b927c9057c91f4">
+        <dex dex="/Users/adam/RNBroadcaster/android/app/build/intermediates/pre-dexed/debug/classes_dd21bc79690caae27d24c035aa2ea9ac901bdc3b.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/adam/Library/Android/sdk/extras/android/m2repository/com/android/support/support-annotations/23.0.1/support-annotations-23.0.1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="1fce89a6428c51467090d7f424e4c9c3dbd55f7e">
+        <dex dex="/Users/adam/RNBroadcaster/android/app/build/intermediates/pre-dexed/debug/support-annotations-23.0.1_6cef8c05001ce8729943a4cb4dcb6e438025c7c5.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/adam/.android/build-cache/1404de7483dc471a9b50e5b275f22f3ad1874363/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="eb9f1cef6b29492df701111c555908cb53dece35">
+        <dex dex="/Users/adam/RNBroadcaster/android/app/build/intermediates/pre-dexed/debug/classes_424c420ea73d76b171b1595a85b3ee7576bd20a9.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/adam/RNBroadcaster/node_modules/react-native-librestreaming/android/build/intermediates/bundles/default/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="1a9c48924451597939c53dea49b7ede6c133330d">
+        <dex dex="/Users/adam/RNBroadcaster/android/app/build/intermediates/pre-dexed/debug/classes_ef500c884b03266050c75147c35fdc1b850ae611.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/adam/.gradle/caches/modules-2/files-2.1/com.squareup.okhttp3/okhttp/3.6.0/69edde9fc4b01c9fd51d25b83428837478c27254/okhttp-3.6.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="69edde9fc4b01c9fd51d25b83428837478c27254">
+        <dex dex="/Users/adam/RNBroadcaster/android/app/build/intermediates/pre-dexed/debug/okhttp-3.6.0_8a5b8dc8e62092258e9cfc53ee5777e265343e28.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/adam/.gradle/caches/modules-2/files-2.1/com.squareup.okio/okio/1.13.0/a9283170b7305c8d92d25aff02a6ab7e45d06cbe/okio-1.13.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="a9283170b7305c8d92d25aff02a6ab7e45d06cbe">
+        <dex dex="/Users/adam/RNBroadcaster/android/app/build/intermediates/pre-dexed/debug/okio-1.13.0_e0c7d692a3a7978d7400e3f8ba0b16255db8405e.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/adam/.android/build-cache/aa6cc146e723436aeb9a7eb1e80202b7501a7395/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="722acae466ccefebedf8a6631384e83bf3139f7c">
+        <dex dex="/Users/adam/RNBroadcaster/android/app/build/intermediates/pre-dexed/debug/classes_bbf37e5d44ce9de7ca0efcdf54a4eadd7387ce68.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/adam/.android/build-cache/c94360f4ba944a4bc5723ca360dbd56c49d531cc/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="c31e21b53ff2f74664e498248d01453a32e32d48">
+        <dex dex="/Users/adam/RNBroadcaster/android/app/build/intermediates/pre-dexed/debug/classes_8e6352c64f5cf8fb128ad0a2a7626329ffbf6722.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/adam/RNBroadcaster/node_modules/react-native-camera/android/build/intermediates/bundles/default/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="09ca508a1758e1fb7b63b8de7af43e7ec125bd58">
+        <dex dex="/Users/adam/RNBroadcaster/android/app/build/intermediates/pre-dexed/debug/classes_9a37fd413be311a747863e83ceb9fb5273d8d579.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/adam/.android/build-cache/e73ae6e94f6ed246b0c74d091fe129cab3caba91/output/jars/libs/infer-annotations-4.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="9809e90be788acdb479b2b44e2112f3295a03068">
+        <dex dex="/Users/adam/RNBroadcaster/android/app/build/intermediates/pre-dexed/debug/infer-annotations-4.0_b53c375742ef6544e2200985295a9c6ef0d45055.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/adam/RNBroadcaster/node_modules/react-native-orientation/android/build/intermediates/bundles/default/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="7bc2156848df4cf531e2f2f8496391a96eb7e623">
+        <dex dex="/Users/adam/RNBroadcaster/android/app/build/intermediates/pre-dexed/debug/classes_66b0c10f0ac960368316cf7702796686be31135c.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/adam/.android/build-cache/c94360f4ba944a4bc5723ca360dbd56c49d531cc/output/jars/libs/internal_impl-23.0.1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="aa92916125166649d8ad4ba3940c3dd7515596d3">
+        <dex dex="/Users/adam/RNBroadcaster/android/app/build/intermediates/pre-dexed/debug/internal_impl-23.0.1_ef6045ae816e2ae593f908b86d2e4f508b102520.jar" />
+    </item>
+
+</items>
