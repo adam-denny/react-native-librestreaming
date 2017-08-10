@@ -2,83 +2,83 @@
   "_args": [
     [
       {
-        "raw": "https://github.com/damly/react-native-vunun-live.git",
+        "raw": "https://github.com/adam-denny/react-native-librestreaming.git",
         "scope": null,
         "escapedName": null,
         "name": null,
-        "rawSpec": "https://github.com/damly/react-native-vunun-live.git",
-        "spec": "git+https://github.com/damly/react-native-vunun-live.git",
+        "rawSpec": "https://github.com/adam-denny/react-native-librestreaming.git",
+        "spec": "git+https://github.com/adam-denny/react-native-librestreaming.git",
         "type": "hosted",
         "hosted": {
           "type": "github",
-          "ssh": "git@github.com:damly/react-native-vunun-live.git",
-          "sshUrl": "git+ssh://git@github.com/damly/react-native-vunun-live.git",
-          "httpsUrl": "git+https://github.com/damly/react-native-vunun-live.git",
-          "gitUrl": "git://github.com/damly/react-native-vunun-live.git",
-          "shortcut": "github:damly/react-native-vunun-live",
-          "directUrl": "https://raw.githubusercontent.com/damly/react-native-vunun-live/master/package.json"
+          "ssh": "git@github.com:adam-denny/react-native-librestreaming.git",
+          "sshUrl": "git+ssh://git@github.com/adam-denny/react-native-librestreaming.git",
+          "httpsUrl": "git+https://github.com/adam-denny/react-native-librestreaming.git",
+          "gitUrl": "git://github.com/adam-denny/react-native-librestreaming.git",
+          "shortcut": "github:adam-denny/react-native-librestreaming",
+          "directUrl": "https://raw.githubusercontent.com/adam-denny/react-native-librestreaming/master/package.json"
         }
       },
       "/Users/adam/RNBroadcaster"
     ]
   ],
-  "_from": "git+https://github.com/damly/react-native-vunun-live.git",
-  "_id": "react-native-vunun-live@1.0.5",
+  "_from": "git+https://github.com/adam-denny/react-native-librestreaming.git",
+  "_id": "react-native-librestreaming@1.0.5",
   "_inCache": true,
-  "_location": "/react-native-vunun-live",
+  "_location": "/react-native-librestreaming",
   "_phantomChildren": {},
   "_requested": {
-    "raw": "https://github.com/damly/react-native-vunun-live.git",
+    "raw": "https://github.com/adam-denny/react-native-librestreaming.git",
     "scope": null,
     "escapedName": null,
     "name": null,
-    "rawSpec": "https://github.com/damly/react-native-vunun-live.git",
-    "spec": "git+https://github.com/damly/react-native-vunun-live.git",
+    "rawSpec": "https://github.com/adam-denny/react-native-librestreaming.git",
+    "spec": "git+https://github.com/adam-denny/react-native-librestreaming.git",
     "type": "hosted",
     "hosted": {
       "type": "github",
-      "ssh": "git@github.com:damly/react-native-vunun-live.git",
-      "sshUrl": "git+ssh://git@github.com/damly/react-native-vunun-live.git",
-      "httpsUrl": "git+https://github.com/damly/react-native-vunun-live.git",
-      "gitUrl": "git://github.com/damly/react-native-vunun-live.git",
-      "shortcut": "github:damly/react-native-vunun-live",
-      "directUrl": "https://raw.githubusercontent.com/damly/react-native-vunun-live/master/package.json"
+      "ssh": "git@github.com:adam-denny/react-native-librestreaming.git",
+      "sshUrl": "git+ssh://git@github.com/adam-denny/react-native-librestreaming.git",
+      "httpsUrl": "git+https://github.com/adam-denny/react-native-librestreaming.git",
+      "gitUrl": "git://github.com/adam-denny/react-native-librestreaming.git",
+      "shortcut": "github:adam-denny/react-native-librestreaming",
+      "directUrl": "https://raw.githubusercontent.com/adam-denny/react-native-librestreaming/master/package.json"
     }
   },
   "_requiredBy": [
     "#USER",
     "/"
   ],
-  "_resolved": "git+https://github.com/damly/react-native-vunun-live.git#8481384080ff164084edbf69ef7488d176539708",
+  "_resolved": "git+https://github.com/adam-denny/react-native-librestreaming.git#8481384080ff164084edbf69ef7488d176539708",
   "_shasum": "42cf8d66777f3166c7ea4eb3c46dbb95e5305eb9",
   "_shrinkwrap": null,
-  "_spec": "https://github.com/damly/react-native-vunun-live.git",
+  "_spec": "https://github.com/adam-denny/react-native-librestreaming.git",
   "_where": "/Users/adam/RNBroadcaster",
   "author": {
-    "name": "damly"
+    "name": "adam-denny"
   },
   "bugs": {
-    "url": "https://github.com/damly/react-native-vunun-live/issues"
+    "url": "https://github.com/adam-denny/react-native-librestreaming/issues"
   },
   "dependencies": {},
   "description": "react native live",
   "devDependencies": {},
   "gitHead": "8481384080ff164084edbf69ef7488d176539708",
-  "homepage": "https://github.com/damly/react-native-vunun-live#readme",
+  "homepage": "https://github.com/adam-denny/react-native-librestreaming#readme",
   "keywords": [
     "rtmp live stream",
     "live"
   ],
   "license": "LGPL-3.0",
   "main": "index.js",
-  "name": "react-native-vunun-live",
+  "name": "react-native-librestreaming",
   "nativePackage": true,
   "optionalDependencies": {},
-  "readme": "\nnpm install react-native-vunun-live —save\nrnpm link\n",
+  "readme": "\nnpm install react-native-librestreaming —save\nrnpm link\n",
   "readmeFilename": "README.md",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/damly/react-native-vunun-live.git"
+    "url": "git+https://github.com/adam-denny/react-native-librestreaming.git"
   },
   "rnpm": {
     "android": {
