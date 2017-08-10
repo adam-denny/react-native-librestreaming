@@ -1,8 +1,11 @@
 package com.vunun.librestreaming;
 
+import android.app.Activity;
 import android.graphics.SurfaceTexture;
 import android.hardware.Camera;
+import android.os.Handler;
 import android.util.Log;
+import java.util.concurrent.TimeUnit;
 
 import me.lake.librestreaming.client.RESClient;
 import me.lake.librestreaming.core.listener.RESConnectionListener;
@@ -10,7 +13,10 @@ import me.lake.librestreaming.filter.softaudiofilter.BaseSoftAudioFilter;
 import me.lake.librestreaming.model.RESConfig;
 import me.lake.librestreaming.model.Size;
 import me.lake.librestreaming.sample.audiofilter.SetVolumeAudioFilter;
+import me.lake.librestreaming.sample.hardfilter.FishEyeFilterHard;
+import me.lake.librestreaming.sample.hardfilter.SeaScapeFilter;
 import me.lake.librestreaming.sample.hardfilter.SkinBlurHardVideoFilter;
+import me.lake.librestreaming.sample.hardfilter.SobelEdgeDetectionHardVideoFilter;
 import me.lake.librestreaming.sample.hardfilter.WhiteningHardVideoFilter;
 
 /**
@@ -63,7 +69,9 @@ public class RNLrsPublisher {
     }
 
     public void setOrientation(String orientation) {
+        Log.d("RNLrsPublisher", orientation);
         this.orientation = orientation;
+        setCameraDirection();
     }
 
     public void setCameraPositionBack() {
@@ -81,13 +89,20 @@ public class RNLrsPublisher {
         frontDirection = cameraInfo.orientation;
         Camera.getCameraInfo(Camera.CameraInfo.CAMERA_FACING_BACK, cameraInfo);
         backDirection = cameraInfo.orientation;
+        Log.d("RNLrsPublisher", "Front orientation == " + frontDirection);
+        Log.d("RNLrsPublisher", "Back orientation == " + backDirection);
+
         if (orientation.equalsIgnoreCase("Portrait")) {
-            resConfig.setFrontCameraDirectionMode((frontDirection == 90 ? RESConfig.DirectionMode.FLAG_DIRECTION_ROATATION_270 : RESConfig.DirectionMode.FLAG_DIRECTION_ROATATION_90) | RESConfig.DirectionMode.FLAG_DIRECTION_FLIP_HORIZONTAL);
+            Log.d("RNLrsPublisher", "In Portrait Mode");
+            resConfig.setFrontCameraDirectionMode((frontDirection == 90 ? RESConfig.DirectionMode.FLAG_DIRECTION_ROATATION_90 : RESConfig.DirectionMode.FLAG_DIRECTION_ROATATION_270));
             resConfig.setBackCameraDirectionMode((backDirection == 90 ? RESConfig.DirectionMode.FLAG_DIRECTION_ROATATION_90 : RESConfig.DirectionMode.FLAG_DIRECTION_ROATATION_270));
         } else {
+            Log.d("RNLrsPublisher", "In Landscape Mode");
+            Log.d("RNLrsPublisher", "frontDirection == " + frontDirection);
             resConfig.setBackCameraDirectionMode((backDirection == 90 ? RESConfig.DirectionMode.FLAG_DIRECTION_ROATATION_0 : RESConfig.DirectionMode.FLAG_DIRECTION_ROATATION_180));
-            resConfig.setFrontCameraDirectionMode((frontDirection == 90 ? RESConfig.DirectionMode.FLAG_DIRECTION_ROATATION_180 : RESConfig.DirectionMode.FLAG_DIRECTION_ROATATION_0) | RESConfig.DirectionMode.FLAG_DIRECTION_FLIP_HORIZONTAL);
+            resConfig.setFrontCameraDirectionMode((frontDirection == 90 ? RESConfig.DirectionMode.FLAG_DIRECTION_ROATATION_180 : RESConfig.DirectionMode.FLAG_DIRECTION_ROATATION_180));
         }
+
     }
 
 
@@ -121,13 +136,14 @@ public class RNLrsPublisher {
 
 
     public void stopStreaming() {
+        Log.d("RNLrsPublisher", "Stopping Stream");
         if (resClient == null) {
             return;
         }
-        resClient.stopPreview();
+        //resClient.stopPreview();
         resClient.stopStreaming();
-        resClient.destroy();
-        resClient = null;
+        //resClient.destroy();
+        //resClient = null;
         setDefault();
     }
 
@@ -159,11 +175,13 @@ public class RNLrsPublisher {
         return true;
     }
 
-    public void startStreaming() {
-        Log.d("STARTING", "Starting Stream");
-        if (streamUrl.isEmpty() || streamKey.isEmpty())
-            return;
+    public boolean startStreaming() {
+        Log.d("RNLrsPublisher", "Starting Stream");
         resClient = new RESClient();
+
+        if (streamUrl.isEmpty() || streamKey.isEmpty())
+            return false;
+
 
         if (camera.equalsIgnoreCase("back")) {
             setCameraPositionBack();
@@ -187,16 +205,21 @@ public class RNLrsPublisher {
         setVideoFPS(25);
 
         resConfig.setRtmpAddr(streamUrl + '/' + streamKey);
+
         if (!prepare()) {
             resClient = null;
-            return;
+            return false;
         }
 
         resClient.startStreaming();
+        return true;
     }
 
-    public void startPreview(SurfaceTexture surface, int width, int height) {
+
+    public void startPreview(SurfaceTexture surface, int width, int height){
+
         if (resClient == null) {
+            Log.d("RNLrsPublisher", "resClient == null so NO PREVIEW");
             return;
         }
         resClient.startPreview(surface, width, height);
@@ -230,10 +253,35 @@ public class RNLrsPublisher {
         resClient.setHardVideoFilter(new WhiteningHardVideoFilter());
     }
 
+    public void setFishEye(){
+        if (resClient == null) {
+            return;
+        }
+        resClient.setHardVideoFilter(new FishEyeFilterHard());
+    }
+
+    public void setSeaScape(){
+        if (resClient == null) {
+            return;
+        }
+        resClient.setHardVideoFilter(new SeaScapeFilter());
+    }
+
+    public void setEdgeDetection(){
+        if (resClient == null) {
+            return;
+        }
+        resClient.setHardVideoFilter(new SobelEdgeDetectionHardVideoFilter());
+    }
+
     public void setZoomByPercent(int percent) {
         if (resClient == null) {
             return;
         }
         resClient.setZoomByPercent(percent / 100.0f);
+    }
+
+    public void releaseFilters(){
+        resClient.releaseHardVideoFilter();
     }
 }

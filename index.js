@@ -18,8 +18,6 @@ else {
     NativeLiveViewManager = NativeModules.RNVideoCoreViewManager;
 }
 
-console.log(NativeLiveViewManager);
-
 class LiveView extends Component {
 
     constructor(props) {
@@ -27,16 +25,60 @@ class LiveView extends Component {
     }
 
     componentDidMount() {
-        NativeLiveViewManager.startPublish();
+		NativeLiveViewManager.startPublish(() => {
+			alert("error");
+		}, () => {
+			console.log("starting publish")
+		});
     }
 
     componentWillUnmount() {
         NativeLiveViewManager.stopPublish();
     }
 
-    render() {
+	start(error, success){
+		NativeLiveViewManager.startPublish(error, success);
+	}
+
+	stop(){
+		NativeLiveViewManager.stopPublish();
+	}
+
+	swapCamera(){
+		NativeLiveViewManager.swapCamera();
+	}
+
+	zoom(percent){
+		NativeLiveViewManager.configureSetZoomByPercent(percent);
+	}
+
+	setSkinBlur(amount){
+		NativeLiveViewManager.setSkinBlur(amount);
+	}
+
+	setWhitening(){
+		NativeLiveViewManager.setWhitening();
+	}
+
+	setFishEye(){
+		NativeLiveViewManager.setFishEye();
+	}
+
+	setEdgeDetection(){
+		NativeLiveViewManager.setEdgeDetection();
+	}
+
+	setSeaScape(){
+		NativeLiveViewManager.setSeaScape();
+	}
+
+	render() {
         return <NativeLiveView {...this.props}/>;
     }
+
+	clearFilters(){
+		NativeLiveViewManager.clearFilters();
+	}
 }
 
 LiveView.propTypes = {

@@ -3,6 +3,7 @@ package com.vunun.librestreaming;
 import android.content.Context;
 import android.graphics.SurfaceTexture;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.TextureView;
 
 /**
@@ -17,6 +18,8 @@ public class RNLrsView extends TextureView {
         this.setSurfaceTextureListener(new SurfaceTextureListener() {
             @Override
             public void onSurfaceTextureAvailable(SurfaceTexture surface, int width, int height) {
+
+                Log.d("RNLrsView", width + "w, " + height + "h");
                 RNLrsPublisher.getInstance().startPreview(surface, width, height);
             }
 

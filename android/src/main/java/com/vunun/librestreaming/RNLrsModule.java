@@ -40,13 +40,37 @@ public class RNLrsModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void startPublish() {
-        RNLrsPublisher.getInstance().startStreaming();
-        RNLrsPublisher.getInstance().setWhiteningFilter();
+    public void setFishEye() {
+        RNLrsPublisher.getInstance().setFishEye();
+    }
+
+    @ReactMethod
+    public void setEdgeDetection() {
+        RNLrsPublisher.getInstance().setEdgeDetection();
+    }
+
+    @ReactMethod
+    public void setSeaScape(){
+        RNLrsPublisher.getInstance().setSeaScape();
+    }
+
+    @ReactMethod
+    public void startPublish(Callback errorCallback, Callback successCallback) {
+        if(RNLrsPublisher.getInstance().startStreaming()){
+            successCallback.invoke("started");
+        } else {
+            errorCallback.invoke("error");
+        }
+        //RNLrsPublisher.getInstance().setWhiteningFilter();
     }
 
     @ReactMethod
     public void stopPublish() {
         RNLrsPublisher.getInstance().stopStreaming();
     }
+
+    @ReactMethod
+    public void clearFilters() { RNLrsPublisher.getInstance().releaseFilters(); }
+
+
 }

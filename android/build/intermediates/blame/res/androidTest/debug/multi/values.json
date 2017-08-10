@@ -1,6 +1,6 @@
 [
     {
-        "outputFile": "/Users/adam/RNBroadcaster/node_modules/react-native-vunun-live/android/build/intermediates/incremental/mergeDebugAndroidTestResources/merged.dir/values/values.xml",
+        "outputFile": "/Users/adam/RNBroadcaster/node_modules/react-native-librestreaming/android/build/intermediates/incremental/mergeDebugAndroidTestResources/merged.dir/values/values.xml",
         "map": [
             {
                 "to": {
@@ -3355,7 +3355,7 @@
                     "endOffset": 31581
                 },
                 "from": {
-                    "file": "/Users/adam/RNBroadcaster/node_modules/react-native-vunun-live/android/build/intermediates/bundles/debug/res/values/values.xml",
+                    "file": "/Users/adam/RNBroadcaster/node_modules/react-native-librestreaming/android/build/intermediates/bundles/debug/res/values/values.xml",
                     "position": {
                         "startLine": 2,
                         "startColumn": 4,
