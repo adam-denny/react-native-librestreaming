@@ -11,12 +11,7 @@ import {
 var NativeLiveViewManager;
 var NativeLiveView;
 
-if (Platform.OS === 'android') {
-    NativeLiveViewManager = NativeModules.RNLibReStreamingModule;
-}
-else {
-    NativeLiveViewManager = NativeModules.RNVideoCoreViewManager;
-}
+NativeLiveViewManager = NativeModules.RNLibReStreamingModule;
 
 class LiveView extends Component {
 
