@@ -35,6 +35,7 @@ public class RNLrsPublisher {
     private RESConfig resConfig = RESConfig.obtain();
     private String streamUrl = "";
     private String streamKey = "";
+    private boolean ready = false;
 
     private String camera = "front";
     private String quality = "d1";
@@ -55,6 +56,7 @@ public class RNLrsPublisher {
         camera = "front";
         quality = "d1";
         orientation = "landscape";
+        ready = false;
     }
 
     public void setStreamUrl(String streamUrl) {
@@ -115,9 +117,8 @@ public class RNLrsPublisher {
             resConfig.setBackCameraDirectionMode((backDirection == 90 ? RESConfig.DirectionMode.FLAG_DIRECTION_ROATATION_0 : RESConfig.DirectionMode.FLAG_DIRECTION_ROATATION_180));
             resConfig.setFrontCameraDirectionMode((frontDirection == 90 ? RESConfig.DirectionMode.FLAG_DIRECTION_ROATATION_180 : RESConfig.DirectionMode.FLAG_DIRECTION_ROATATION_0));
         } else {
-            resConfig.setBackCameraDirectionMode((backDirection == 90 ? RESConfig.DirectionMode.FLAG_DIRECTION_ROATATION_0 : RESConfig.DirectionMode.FLAG_DIRECTION_ROATATION_180));
+            resConfig.setBackCameraDirectionMode((backDirection == 90 ? RESConfig.DirectionMode.FLAG_DIRECTION_ROATATION_180 : RESConfig.DirectionMode.FLAG_DIRECTION_ROATATION_0));
             resConfig.setFrontCameraDirectionMode((frontDirection == 90 ? RESConfig.DirectionMode.FLAG_DIRECTION_ROATATION_180 : RESConfig.DirectionMode.FLAG_DIRECTION_ROATATION_180));
-
         }
 
     }
@@ -157,11 +158,12 @@ public class RNLrsPublisher {
         if (resClient == null) {
             return;
         }
-        //resClient.stopPreview();
+        resClient.stopPreview();
         resClient.stopStreaming();
-        //resClient.destroy();
-        //resClient = null;
-        setDefault();
+        resClient.destroy();
+        resClient = null;
+        ready = false;
+        //setDefault();
     }
 
     private boolean prepare() {
@@ -192,12 +194,11 @@ public class RNLrsPublisher {
         return true;
     }
 
-    public boolean startStreaming() {
-        Log.d("RNLrsPublisher", "Starting Stream");
+    public void setupConnection(){
         resClient = new RESClient();
 
         if (streamUrl.isEmpty() || streamKey.isEmpty())
-            return false;
+            return;
 
 
         if (camera.equalsIgnoreCase("back")) {
@@ -225,21 +226,32 @@ public class RNLrsPublisher {
 
         if (!prepare()) {
             resClient = null;
-            return false;
+            return;
         }
 
+        ready = true;
+    }
+
+    public boolean startStreaming() {
+        Log.d("RNLrsPublisher", "Starting Stream");
+        if(!ready){
+            setupConnection();
+        }
         resClient.startStreaming();
         return true;
     }
 
 
     public void startPreview(SurfaceTexture surface, int width, int height){
+        Log.d("RNLrsPublisher", "Starting Preview");
+//        if (resClient == null) {
+//            Log.d("RNLrsPublisher", "resClient == null so NO PREVIEW");
 
-        if (resClient == null) {
-            Log.d("RNLrsPublisher", "resClient == null so NO PREVIEW");
-            return;
+//            return;
+//        }
+        if(!ready){
+            setupConnection();
         }
-
         resClient.startPreview(surface, width, height);
     }
 

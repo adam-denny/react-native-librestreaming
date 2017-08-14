@@ -26,6 +26,7 @@ public class VideoSenderThread extends Thread {
         startTime = 0;
         dstVideoEncoder = encoder;
         dataCollecter = flvDataCollecter;
+        LogTools.setEnableLog(false);
     }
 
     private boolean shouldQuit = false;
