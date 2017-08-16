@@ -2,6 +2,8 @@ package com.vunun.librestreaming;
 
 import android.content.Context;
 import android.graphics.SurfaceTexture;
+import android.hardware.camera2.CameraCharacteristics;
+import android.hardware.camera2.CameraManager;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.TextureView;
@@ -15,6 +17,7 @@ public class RNLrsView extends TextureView {
         super(context);
 
         this.setKeepScreenOn(true);
+
         this.setSurfaceTextureListener(new SurfaceTextureListener() {
             @Override
             public void onSurfaceTextureAvailable(SurfaceTexture surface, int width, int height) {
@@ -25,7 +28,7 @@ public class RNLrsView extends TextureView {
 
             @Override
             public void onSurfaceTextureSizeChanged(SurfaceTexture surface, int width, int height) {
-                RNLrsPublisher.getInstance().updatePreview(width, height);
+                //RNLrsPublisher.getInstance().updatePreview(width, height);
             }
 
             @Override

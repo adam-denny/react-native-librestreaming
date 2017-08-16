@@ -20,15 +20,16 @@ class LiveView extends Component {
     }
 
     componentDidMount() {
-		NativeLiveViewManager.startPublish(() => {
-			alert("error");
-		}, () => {
-			console.log("starting publish")
-		});
+		// NativeLiveViewManager.startPublish(() => {
+		// 	alert("error");
+		// }, () => {
+		// 	console.log("starting publish")
+		// });
+		NativeLiveViewManager.init();
     }
 
     componentWillUnmount() {
-        NativeLiveViewManager.stopPublish();
+        NativeLiveViewManager.end();
     }
 
 	start(error, success){
@@ -65,6 +66,10 @@ class LiveView extends Component {
 
 	setSeaScape(){
 		NativeLiveViewManager.setSeaScape();
+	}
+
+	refreshPreview(){
+		NativeLiveViewManager.refreshPreview();
 	}
 
 	render() {

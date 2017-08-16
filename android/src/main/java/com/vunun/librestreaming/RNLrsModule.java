@@ -12,6 +12,8 @@ public class RNLrsModule extends ReactContextBaseJavaModule {
         super(reactContext);
         mReactContext = reactContext;
         _sensorOrientationChecker = new RCTSensorOrientationChecker(mReactContext);
+        Log.d("RNLrsModule", "Hello, I'm awake");
+        init();
     }
 
     @Override
@@ -22,6 +24,21 @@ public class RNLrsModule extends ReactContextBaseJavaModule {
     @ReactMethod
     public void configureSetZoomByPercent(int percent) {
         RNLrsPublisher.getInstance().setZoomByPercent(percent);
+    }
+
+    @ReactMethod
+    public void init(){
+        _sensorOrientationChecker.onResume();
+        _sensorOrientationChecker.registerOrientationListener(new RCTSensorOrientationListener() {
+            @Override
+            public void orientationEvent() {
+                int deviceOrientation = _sensorOrientationChecker.getOrientation();
+                _sensorOrientationChecker.unregisterOrientationListener();
+                _sensorOrientationChecker.onPause();
+                Log.d("RNLrsModule", deviceOrientation + "deg");
+                RNLrsPublisher.getInstance().setInitialOrientation(deviceOrientation);
+            }
+        });
     }
 
     @ReactMethod
@@ -61,24 +78,16 @@ public class RNLrsModule extends ReactContextBaseJavaModule {
 
     @ReactMethod
     public void startPublish(Callback errorCallback, Callback successCallback) {
-        _sensorOrientationChecker.onResume();
-        _sensorOrientationChecker.registerOrientationListener(new RCTSensorOrientationListener() {
-            @Override
-            public void orientationEvent() {
-                int deviceOrientation = _sensorOrientationChecker.getOrientation();
-                _sensorOrientationChecker.unregisterOrientationListener();
-                _sensorOrientationChecker.onPause();
-                Log.d("RNLrsModule", deviceOrientation + "deg");
-                RNLrsPublisher.getInstance().setInitialOrientation(deviceOrientation);
+        if(RNLrsPublisher.getInstance().startStreaming()){
+            successCallback.invoke("Started");
+        } else {
+            errorCallback.invoke("Failed");
+        };
+    }
 
-                if(RNLrsPublisher.getInstance().startStreaming()){
-                    //successCallback.invoke("started");
-                } else {
-                    //errorCallback.invoke("error");
-                }
-            }
-        });
-        //RNLrsPublisher.getInstance().setWhiteningFilter();
+    @ReactMethod
+    public void refreshPreview(){
+        RNLrsPublisher.getInstance().refreshPreview();
     }
 
     @ReactMethod
@@ -89,5 +98,6 @@ public class RNLrsModule extends ReactContextBaseJavaModule {
     @ReactMethod
     public void clearFilters() { RNLrsPublisher.getInstance().releaseFilters(); }
 
-
+    @ReactMethod
+    public void end() {RNLrsPublisher.getInstance().end();}
 }

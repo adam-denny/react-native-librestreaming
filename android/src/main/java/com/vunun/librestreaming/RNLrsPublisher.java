@@ -3,6 +3,7 @@ package com.vunun.librestreaming;
 import android.app.Activity;
 import android.graphics.SurfaceTexture;
 import android.hardware.Camera;
+import android.os.CountDownTimer;
 import android.os.Handler;
 import android.util.Log;
 import android.content.res.Configuration;
@@ -40,6 +41,12 @@ public class RNLrsPublisher {
     private String camera = "front";
     private String quality = "d1";
     private String orientation = "landscape";
+    public int mWidth;
+    public int mHeight;
+    public SurfaceTexture mSurface;
+    private boolean readyToPreview = false;
+    private boolean hasStarted = false;
+    private boolean stopped = false;
 
     public static RNLrsPublisher getInstance() {
         return ourInstance;
@@ -76,9 +83,7 @@ public class RNLrsPublisher {
     }
 
     public void setOrientation(String orientation) {
-        Log.d("RNLrsPublisher", orientation);
-        //this.orientation = orientation;
-        //setCameraDirection();
+        Log.d("VIDEO", orientation);
     }
 
     public void setCameraPositionBack() {
@@ -103,24 +108,31 @@ public class RNLrsPublisher {
     }
 
     public void setCameraDirection() {
+
         int frontDirection, backDirection;
         Camera.CameraInfo cameraInfo = new Camera.CameraInfo();
         Camera.getCameraInfo(Camera.CameraInfo.CAMERA_FACING_FRONT, cameraInfo);
         frontDirection = cameraInfo.orientation;
         Camera.getCameraInfo(Camera.CameraInfo.CAMERA_FACING_BACK, cameraInfo);
         backDirection = cameraInfo.orientation;
+        Log.d("RNLrsPublisher", "front" + frontDirection + " back" + backDirection);
 
         if (orientation.equalsIgnoreCase("PORTRAIT")) {
+            Log.d("RNLrsPublisher", "Portrait Mode");
             resConfig.setFrontCameraDirectionMode((frontDirection == 90 ? RESConfig.DirectionMode.FLAG_DIRECTION_ROATATION_90 : RESConfig.DirectionMode.FLAG_DIRECTION_ROATATION_270));
             resConfig.setBackCameraDirectionMode((backDirection == 90 ? RESConfig.DirectionMode.FLAG_DIRECTION_ROATATION_90 : RESConfig.DirectionMode.FLAG_DIRECTION_ROATATION_270));
         } else if(orientation.equalsIgnoreCase("LANDSCAPE-LEFT")) {
+            Log.d("RNLrsPublisher", "Landscape left");
             resConfig.setBackCameraDirectionMode((backDirection == 90 ? RESConfig.DirectionMode.FLAG_DIRECTION_ROATATION_0 : RESConfig.DirectionMode.FLAG_DIRECTION_ROATATION_180));
             resConfig.setFrontCameraDirectionMode((frontDirection == 90 ? RESConfig.DirectionMode.FLAG_DIRECTION_ROATATION_180 : RESConfig.DirectionMode.FLAG_DIRECTION_ROATATION_0));
         } else {
+            Log.d("RNLrsPublisher", "Landscape Right");
             resConfig.setBackCameraDirectionMode((backDirection == 90 ? RESConfig.DirectionMode.FLAG_DIRECTION_ROATATION_180 : RESConfig.DirectionMode.FLAG_DIRECTION_ROATATION_0));
             resConfig.setFrontCameraDirectionMode((frontDirection == 90 ? RESConfig.DirectionMode.FLAG_DIRECTION_ROATATION_180 : RESConfig.DirectionMode.FLAG_DIRECTION_ROATATION_180));
         }
 
+        readyToPreview = true;
+        Log.d("VIDEO", "Ready to Preview");
     }
 
 
@@ -152,18 +164,31 @@ public class RNLrsPublisher {
         resClient.releaseSoftAudioFilter();
     }
 
+    public void end(){
+        Log.d("VIDEO", "Stopping Stream");
+        if(hasStarted && !stopped){
+            resClient.stopStreaming();
+        }
 
-    public void stopStreaming() {
-        Log.d("RNLrsPublisher", "Stopping Stream");
         if (resClient == null) {
             return;
         }
         resClient.stopPreview();
-        resClient.stopStreaming();
         resClient.destroy();
         resClient = null;
         ready = false;
-        //setDefault();
+        hasStarted = false;
+        stopped = false;
+        readyToPreview = false;
+    }
+
+    public void stopStreaming() {
+        Log.d("VIDEO", "Stopping Stream");
+        if (resClient == null) {
+            return;
+        }
+        resClient.stopStreaming();
+        stopped = true;
     }
 
     private boolean prepare() {
@@ -194,9 +219,13 @@ public class RNLrsPublisher {
         return true;
     }
 
+    public void refreshPreview(){
+        setCameraDirection();
+        updatePreview(mWidth, mHeight);
+    }
+
     public void setupConnection(){
         resClient = new RESClient();
-
         if (streamUrl.isEmpty() || streamKey.isEmpty())
             return;
 
@@ -207,7 +236,7 @@ public class RNLrsPublisher {
             setCameraPositionFront();
         }
 
-        setCameraDirection();
+
 
         if (quality.equalsIgnoreCase("D1")) {
             setBitRate(800 * 1000);
@@ -233,26 +262,51 @@ public class RNLrsPublisher {
     }
 
     public boolean startStreaming() {
-        Log.d("RNLrsPublisher", "Starting Stream");
-        if(!ready){
-            setupConnection();
+        try {
+            Log.d("VIDEO", "Starting Stream");
+            if(!ready){
+                setupConnection();
+            }
+            stopped = false;
+            hasStarted = true;
+            resClient.startStreaming();
+            return true;
+        } catch (Exception e){
+            Log.d("VIDEO", "Error loading: ", e);
+            return false;
         }
-        resClient.startStreaming();
-        return true;
+
     }
 
 
     public void startPreview(SurfaceTexture surface, int width, int height){
-        Log.d("RNLrsPublisher", "Starting Preview");
-//        if (resClient == null) {
-//            Log.d("RNLrsPublisher", "resClient == null so NO PREVIEW");
-
-//            return;
-//        }
+        mSurface = surface;
+        mWidth = width;
+        mHeight = height;
+        Log.d("VIDEO", "Trying Preview");
         if(!ready){
             setupConnection();
         }
-        resClient.startPreview(surface, width, height);
+        if(readyToPreview && resClient.prepare(resConfig)) {
+            Log.d("VIDEO", "Starting Preview");
+            Log.d("VIDEO", "PUblisher thinks the preview should be " + resConfig.getFrontCameraDirectionMode());
+
+            resClient.startPreview(surface, width, height);
+        } else {
+            Log.d("VIDEO", "Preview not ready");
+            new CountDownTimer(100,100) {
+                public void onTick(long millisecondsUntilFinished){
+
+                }
+
+                public void onFinish() {
+                    Log.d("VIDEO", "Not Ready yet, retrying");
+                    startPreview(mSurface, mWidth, mHeight);
+                }
+            }.start();
+            return;
+        }
+
     }
 
     public void updatePreview(int width, int height) {

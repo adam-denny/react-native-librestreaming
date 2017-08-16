@@ -2,6 +2,7 @@ package me.lake.librestreaming.model;
 
 
 import android.hardware.Camera;
+import android.util.Log;
 
 /**
  * Created by lake on 16-3-16.
@@ -52,6 +53,7 @@ public class RESConfig {
         res.setPrintDetailMsg(false);
         res.setDefaultCamera(Camera.CameraInfo.CAMERA_FACING_BACK);
         res.setBackCameraDirectionMode(DirectionMode.FLAG_DIRECTION_ROATATION_0);
+        Log.d("VIDEO", "Setting from obtain");
         res.setFrontCameraDirectionMode(DirectionMode.FLAG_DIRECTION_ROATATION_0);
         return res;
     }
@@ -77,7 +79,9 @@ public class RESConfig {
      * @param frontCameraDirectionMode {@link DirectionMode}
      */
     public void setFrontCameraDirectionMode(int frontCameraDirectionMode) {
+
         this.frontCameraDirectionMode = frontCameraDirectionMode;
+        Log.d("VIDEO", "DONE SETTING DIRECTION MODE" + frontCameraDirectionMode);
     }
     /**
      * set front camera rotation & flip

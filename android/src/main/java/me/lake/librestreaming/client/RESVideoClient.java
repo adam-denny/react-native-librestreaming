@@ -2,6 +2,7 @@ package me.lake.librestreaming.client;
 
 import android.graphics.SurfaceTexture;
 import android.hardware.Camera;
+import android.util.Log;
 
 import java.io.IOException;
 import java.util.List;
@@ -153,6 +154,7 @@ public class RESVideoClient {
                 }
                 videoCore.updateCamTexture(camTexture);
             }
+            Log.d("RESVideoClient", "Direction Mode: " + resCoreParameters.frontCameraDirectionMode);
             videoCore.startPreview(surfaceTexture, visualWidth, visualHeight);
             isPreviewing = true;
             return true;
