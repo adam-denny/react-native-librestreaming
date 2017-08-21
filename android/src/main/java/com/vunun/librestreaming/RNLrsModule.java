@@ -5,6 +5,9 @@ import android.util.Log;
 import com.facebook.react.bridge.*;
 import com.vunun.librestreaming.RCTSensorOrientationChecker;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 public class RNLrsModule extends ReactContextBaseJavaModule {
     private final ReactApplicationContext mReactContext;
     private RCTSensorOrientationChecker _sensorOrientationChecker;
@@ -13,7 +16,15 @@ public class RNLrsModule extends ReactContextBaseJavaModule {
         mReactContext = reactContext;
         _sensorOrientationChecker = new RCTSensorOrientationChecker(mReactContext);
         Log.d("RNLrsModule", "Hello, I'm awake");
-        init();
+        new Timer().schedule(new TimerTask() {
+            @Override
+            public void run() {
+                // this code will be executed after 2 seconds
+                Log.d("RNLrsModule", "Initializing broadcaster");
+                init();
+            }
+        }, 2000);
+
     }
 
     @Override
