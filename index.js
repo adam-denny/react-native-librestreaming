@@ -28,6 +28,10 @@ class LiveView extends Component {
 		NativeLiveViewManager.init();
     }
 
+	setNativeProps(props){
+		this._root.setNativeProps(props);
+	}
+
     componentWillUnmount() {
         NativeLiveViewManager.end();
     }
@@ -72,8 +76,12 @@ class LiveView extends Component {
 		NativeLiveViewManager.refreshPreview();
 	}
 
+	setFocusArea(x, y, w, h){
+		NativeLiveViewManager.setFocusArea(x, y, w, h);
+	}
+
 	render() {
-        return <NativeLiveView {...this.props}/>;
+        return <NativeLiveView ref={ref => this._root = ref} {...this.props}/>;
     }
 
 	clearFilters(){
@@ -88,7 +96,9 @@ LiveView.propTypes = {
     orientation:PropTypes.string,
     quality:PropTypes.string,
     camera:PropTypes.string,
-	color:PropTypes.object
+	color:PropTypes.object,
+	zoom:PropTypes.number,
+	stabilize:PropTypes.boolean
 };
 
 if (Platform.OS === 'android') {
