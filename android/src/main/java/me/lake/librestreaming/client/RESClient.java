@@ -1,6 +1,7 @@
 package me.lake.librestreaming.client;
 
 
+import android.graphics.Rect;
 import android.graphics.SurfaceTexture;
 
 import me.lake.librestreaming.core.listener.RESConnectionListener;
@@ -398,5 +399,15 @@ public class RESClient {
 
     static {
         System.loadLibrary("restreaming");
+    }
+
+    public void setFocusArea(Rect rect){
+        videoClient.setFocusArea(rect);
+    }
+
+    public void setStable(boolean stable){
+        if(coreParameters.done){
+            videoClient.setStable(stable);
+        }
     }
 }

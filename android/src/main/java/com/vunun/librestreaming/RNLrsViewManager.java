@@ -2,6 +2,7 @@ package com.vunun.librestreaming;
 
 import android.util.Log;
 
+import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.uimanager.SimpleViewManager;
 import com.facebook.react.uimanager.ThemedReactContext;
@@ -57,4 +58,17 @@ public class RNLrsViewManager  extends SimpleViewManager<RNLrsView> {
         Log.e(">>>>>>>>>>>>>>>>>", "(" + colors.getInt("r") + "," + colors.getInt("g") +"," + colors.getInt("b") + "," + colors.getInt("a") + ")");
         RNLrsPublisher.getInstance().setColors(colors);
     }
+
+    @ReactProp(name="zoom")
+    public void setZoom(RNLrsView view, float zoom){
+        Log.e(">>>>>>>>>>>>>>>>", "setting zoom to " + zoom);
+        RNLrsPublisher.getInstance().setZoomByPercent((int)zoom);
+    }
+
+    @ReactProp(name="stabilize", defaultBoolean = true)
+    public void setStable(RNLrsView view, boolean stable){
+        RNLrsPublisher.getInstance().setStable(stable);
+    }
+
+
 }

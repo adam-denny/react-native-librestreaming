@@ -1,10 +1,12 @@
 package me.lake.librestreaming.client;
 
+import android.graphics.Rect;
 import android.graphics.SurfaceTexture;
 import android.hardware.Camera;
 import android.util.Log;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 
 import me.lake.librestreaming.core.CameraHelper;
@@ -26,6 +28,7 @@ public class RESVideoClient {
     RESCoreParameters resCoreParameters;
     private final Object syncOp = new Object();
     private Camera camera;
+    private boolean cameraSetup = false;
     private SurfaceTexture camTexture;
     private int cameraNum;
     private int currentCameraIndex;
@@ -50,6 +53,7 @@ public class RESVideoClient {
                 LogTools.e("can not open camera");
                 return false;
             }
+            cameraSetup = true;
             Camera.Parameters parameters = camera.getParameters();
             CameraHelper.selectCameraPreviewWH(parameters, resCoreParameters, resConfig.getTargetVideoSize());
             CameraHelper.selectCameraFpsRange(parameters, resCoreParameters);
@@ -334,6 +338,34 @@ public class RESVideoClient {
         }
     }
 
+    public void setFocusArea(Rect rect){
+        Camera.Parameters parameters = camera.getParameters();
+        Camera.Area area = new Camera.Area(rect, 1000);
+        List<Camera.Area> list = Arrays.asList(area);
+
+        List<String> focusModes = parameters.getSupportedFocusModes();
+        if(focusModes.contains(Camera.Parameters.FOCUS_MODE_AUTO)){
+            parameters.setFocusMode("auto");
+            parameters.setFocusAreas(list);
+            parameters.setMeteringAreas(list);
+
+            Log.d("area", String.valueOf(area));
+            camera.setParameters(parameters);
+
+            Camera.AutoFocusCallback myAutoFocusCallback = new Camera.AutoFocusCallback(){
+                @Override
+                public void onAutoFocus(boolean arg0, Camera arg1){
+                    Log.d("autofocused", "autofocused");
+                }
+            };
+
+
+            camera.autoFocus(myAutoFocusCallback);
+        }
+
+
+    }
+
     private void resoveResolution(RESCoreParameters resCoreParameters, RESConfig resConfig) {
         if (resCoreParameters.filterMode == RESCoreParameters.FILTER_MODE_SOFT) {
             if (resCoreParameters.isPortrait) {
@@ -367,5 +399,17 @@ public class RESVideoClient {
                 resCoreParameters.cropRatio = -(1.0f - pr / vr) / 2.0f;
             }
         }
+    }
+
+    public void setStable(boolean stable){
+        Log.d("Stable", String.valueOf(stable));
+        if(cameraSetup){
+            Camera.Parameters parameters = camera.getParameters();
+            if(parameters.isVideoStabilizationSupported()){
+                parameters.setVideoStabilization(stable);
+                camera.setParameters(parameters);
+            }
+        }
+
     }
 }

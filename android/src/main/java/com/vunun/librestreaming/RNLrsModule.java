@@ -111,4 +111,10 @@ public class RNLrsModule extends ReactContextBaseJavaModule {
 
     @ReactMethod
     public void end() {RNLrsPublisher.getInstance().end();}
+
+    @ReactMethod
+    public void setFocusArea(int x, int y, int w, int h){
+        Log.e(">>>>>>>>>>>>>>>>", "setting focus area " + x + " " + y + " " + w + " " + h);
+        RNLrsPublisher.getInstance().setFocusArea(x, y, w, h);
+    }
 }

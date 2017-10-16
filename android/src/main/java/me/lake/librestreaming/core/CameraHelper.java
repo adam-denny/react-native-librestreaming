@@ -2,6 +2,7 @@ package me.lake.librestreaming.core;
 
 import android.graphics.ImageFormat;
 import android.hardware.Camera;
+import android.util.Log;
 
 import java.util.Collections;
 import java.util.Comparator;
@@ -22,6 +23,9 @@ public class CameraHelper {
     public static boolean configCamera(Camera camera, RESCoreParameters coreParameters) {
         Camera.Parameters parameters = camera.getParameters();
         parameters.setWhiteBalance(Camera.Parameters.WHITE_BALANCE_AUTO);
+        if(parameters.isVideoStabilizationSupported()){
+            parameters.setVideoStabilization(true);
+        }
         List<String> focusModes = parameters.getSupportedFocusModes();
         if (focusModes != null) {
             if (focusModes.contains(Camera.Parameters.FOCUS_MODE_CONTINUOUS_VIDEO)) {
@@ -37,6 +41,7 @@ public class CameraHelper {
         try {
             camera.setParameters(parameters);
         } catch (Exception e) {
+            Log.e("Camera Error", String.valueOf(e));
             camera.release();
             return false;
         }

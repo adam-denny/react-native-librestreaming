@@ -1,10 +1,12 @@
 package com.vunun.librestreaming;
 
 import android.app.Activity;
+import android.graphics.Rect;
 import android.graphics.SurfaceTexture;
 import android.hardware.Camera;
 import android.os.CountDownTimer;
 import android.os.Handler;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.content.res.Configuration;
 
@@ -24,6 +26,8 @@ import me.lake.librestreaming.sample.hardfilter.SeaScapeFilter;
 import me.lake.librestreaming.sample.hardfilter.SkinBlurHardVideoFilter;
 import me.lake.librestreaming.sample.hardfilter.SobelEdgeDetectionHardVideoFilter;
 import me.lake.librestreaming.sample.hardfilter.WhiteningHardVideoFilter;
+
+import static java.security.AccessController.getContext;
 
 /**
  * Created by damly on 16/9/7.
@@ -108,7 +112,6 @@ public class RNLrsPublisher {
     }
 
     public void setCameraDirection() {
-
         try {
             int frontDirection, backDirection;
             Camera.CameraInfo cameraInfo = new Camera.CameraInfo();
@@ -135,7 +138,6 @@ public class RNLrsPublisher {
             readyToPreview = true;
             Log.d("VIDEO", "Ready to Preview");
         } catch(Exception e){
-            //catches error from loading in simulator
             e.printStackTrace();
         }
     }
@@ -388,5 +390,26 @@ public class RNLrsPublisher {
         float alpha = (float) 1 / (100 / colors.getInt("a"));
 
         resClient.setHardVideoFilter(new ColorMixHardFilter(red, green, blue, alpha));
+    }
+
+    public void setFocusArea(int x, int y, int w, int h){
+
+        float widthPerc = 0 / w;
+        float heightPerc = 0 / h;
+
+        float xPerc = x * widthPerc;
+        float yPerc = y * heightPerc;
+
+        int xInterp = ((int)xPerc * 2000) - 1000;
+        int yInterp = ((int)yPerc * 2000) - 1000;
+
+        Rect rect = new Rect(xInterp, yInterp, xInterp + 10, yInterp + 10);
+        resClient.setFocusArea(rect);
+    }
+
+    public void setStable(boolean stable){
+        if(resClient != null){
+            resClient.setStable(stable);
+        }
     }
 }
