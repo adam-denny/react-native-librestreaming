@@ -24,7 +24,7 @@ public class RNLivePackage implements ReactPackage {
       //modules.add(new RNYaseaModule(context));
       return modules;
   }
-  @Override
+
   public List<Class<? extends JavaScriptModule>> createJSModules() {
       return Collections.emptyList();
   }
