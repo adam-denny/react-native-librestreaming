@@ -100,7 +100,7 @@ LiveView.propTypes = {
     camera:PropTypes.string,
 	color:PropTypes.object,
 	zoom:PropTypes.number,
-	stabilize:PropTypes.boolean
+	stabilize:PropTypes.bool
 };
 
 if (Platform.OS === 'android') {
