@@ -1,12 +1,14 @@
 'use strict';
 
-import React, {Component, PropTypes} from 'react';
+import React, {Component} from 'react';
 import {
     NativeModules,
     requireNativeComponent,
     View,
     Platform
 } from 'react-native';
+
+import { PropTypes } from 'prop-types';
 
 var NativeLiveViewManager;
 var NativeLiveView;
