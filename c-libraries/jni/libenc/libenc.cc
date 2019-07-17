@@ -1,5 +1,5 @@
 #include <jni.h>
-
+#include <string.h>
 #include <android/log.h>
 #include <libyuv.h>
 #include <x264.h>

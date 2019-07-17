@@ -1,11 +1,18 @@
 #!/bin/sh
 
-ANDROID_NDK=$HOME/Android/Sdk/ndk-bundle
+ANDROID_NDK=$HOME/android-ndk-r14b
 SYSROOT=$ANDROID_NDK/platforms/android-21/arch-arm64
-CROSS_PREFIX=$ANDROID_NDK/toolchains/aarch64-linux-android-4.9/prebuilt/linux-x86_64/bin/aarch64-linux-android-
+CROSS_PREFIX=$ANDROID_NDK/toolchains/aarch64-linux-android-4.9/prebuilt/darwin-x86_64/bin/aarch64-linux-android-
 EXTRA_CFLAGS="-march=armv8-a -D__ANDROID__"
 EXTRA_LDFLAGS="-nostdlib"
 PREFIX=`pwd`/libs/arm64-v8a
+
+echo $PREFIX
+echo $CROSS_PREFIX
+echo $SYSROOT
+echo $EXTRA_CFLAGS
+echo $EXTRA_LDFLAGS
+
 
 ./configure --prefix=$PREFIX \
         --host=aarch64-linux \
