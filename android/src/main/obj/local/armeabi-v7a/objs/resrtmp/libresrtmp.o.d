@@ -1,14 +1,14 @@
-/Users/adam/RNBroadcaster/node_modules/react-native-vunun-live/android/src/main/obj/local/armeabi-v7a/objs/resrtmp/libresrtmp.o: \
-  /Users/adam/RNBroadcaster/node_modules/react-native-vunun-live/android/src/main/jni/rtmp/libresrtmp.c \
-  /Users/adam/RNBroadcaster/node_modules/react-native-vunun-live/android/src/main/jni/rtmp/libresrtmp.h \
-  /Users/adam/RNBroadcaster/node_modules/react-native-vunun-live/android/src/main/jni/rtmp/log.h \
-  /Users/adam/RNBroadcaster/node_modules/react-native-vunun-live/android/src/main/jni/rtmp/librtmp/rtmp.h \
-  /Users/adam/RNBroadcaster/node_modules/react-native-vunun-live/android/src/main/jni/rtmp/librtmp/amf.h
+/Users/adam/react-native-librestreaming/c-libraries/obj/local/armeabi-v7a/objs/resrtmp/libresrtmp.o: \
+  /Users/adam/react-native-librestreaming/c-libraries/jni/rtmp/libresrtmp.c \
+  /Users/adam/react-native-librestreaming/c-libraries/jni/rtmp/libresrtmp.h \
+  /Users/adam/react-native-librestreaming/c-libraries/jni/rtmp/log.h \
+  /Users/adam/react-native-librestreaming/c-libraries/jni/rtmp/librtmp/rtmp.h \
+  /Users/adam/react-native-librestreaming/c-libraries/jni/rtmp/librtmp/amf.h
 
-/Users/adam/RNBroadcaster/node_modules/react-native-vunun-live/android/src/main/jni/rtmp/libresrtmp.h:
+/Users/adam/react-native-librestreaming/c-libraries/jni/rtmp/libresrtmp.h:
 
-/Users/adam/RNBroadcaster/node_modules/react-native-vunun-live/android/src/main/jni/rtmp/log.h:
+/Users/adam/react-native-librestreaming/c-libraries/jni/rtmp/log.h:
 
-/Users/adam/RNBroadcaster/node_modules/react-native-vunun-live/android/src/main/jni/rtmp/librtmp/rtmp.h:
+/Users/adam/react-native-librestreaming/c-libraries/jni/rtmp/librtmp/rtmp.h:
 
-/Users/adam/RNBroadcaster/node_modules/react-native-vunun-live/android/src/main/jni/rtmp/librtmp/amf.h:
+/Users/adam/react-native-librestreaming/c-libraries/jni/rtmp/librtmp/amf.h:

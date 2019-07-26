@@ -26,13 +26,21 @@
 #include <string.h>
 #include <assert.h>
 #include <ctype.h>
+#include <android/log.h>
 
 #include "rtmp_sys.h"
 #include "log.h"
 
 #define MAX_PRINT_LEN	2048
 
-RTMP_LogLevel RTMP_debuglevel = RTMP_LOGERROR;
+#define  LOG_TAG    "someTag"
+
+#define  LOGE(...)  __android_log_print(ANDROID_LOG_ERROR,LOG_TAG,__VA_ARGS__)
+#define  LOGW(...)  __android_log_print(ANDROID_LOG_WARN,LOG_TAG,__VA_ARGS__)
+#define  LOGD(...)  __android_log_print(ANDROID_LOG_DEBUG,LOG_TAG,__VA_ARGS__)
+#define  LOGI(...)  __android_log_print(ANDROID_LOG_INFO,LOG_TAG,__VA_ARGS__)
+
+RTMP_LogLevel RTMP_debuglevel = RTMP_LOGCRIT;
 
 static int neednl;
 
@@ -183,6 +191,8 @@ void RTMP_LogPrintf(const char *format, ...)
 	va_start(args, format);
 	len = vsnprintf(str, MAX_PRINT_LEN-1, format, args);
 	va_end(args);
+
+	// LOGD("RTMP DEBUG LOG: %s", str);
 
 	if ( RTMP_debuglevel==RTMP_LOGCRIT )
 		return;

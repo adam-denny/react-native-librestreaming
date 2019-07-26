@@ -361,7 +361,7 @@ RTMP_GetDuration(RTMP *r)
 int
 RTMP_IsConnected(RTMP *r)
 {
-  return r->m_sb.sb_socket != -1;
+	return r->m_sb.sb_socket != -1;
 }
 
 int
@@ -966,7 +966,7 @@ RTMP_Connect0(RTMP *r, struct sockaddr * service)
     		}
         }
         setNoBlock(r->m_sb.sb_socket,1);
-        LOGD("connect success!");
+        LOGD("connect success and this freaking works");
 
       if (r->Link.socksport)
 	{
@@ -1993,28 +1993,33 @@ SAVC(deleteStream);
 static int
 SendDeleteStream(RTMP *r, double dStreamId)
 {
-  RTMPPacket packet;
-  char pbuf[256], *pend = pbuf + sizeof(pbuf);
-  char *enc;
+	LOGD("going to declare rtmp packet");
+	RTMPPacket packet;
+	LOGD("going to declare buffer");
+	char pbuf[256], *pend = pbuf + sizeof(pbuf);
+	char *enc;
 
-  packet.m_nChannel = 0x03;	/* control channel (invoke) */
-  packet.m_headerType = RTMP_PACKET_SIZE_MEDIUM;
-  packet.m_packetType = RTMP_PACKET_TYPE_INVOKE;
-  packet.m_nTimeStamp = 0;
-  packet.m_nInfoField2 = 0;
-  packet.m_hasAbsTimestamp = 0;
-  packet.m_body = pbuf + RTMP_MAX_HEADER_SIZE;
+	LOGD("going to declare vars");
+	packet.m_nChannel = 0x03; /* control channel (invoke) */
+	packet.m_headerType = RTMP_PACKET_SIZE_MEDIUM;
+	packet.m_packetType = RTMP_PACKET_TYPE_INVOKE;
+	packet.m_nTimeStamp = 0;
+	packet.m_nInfoField2 = 0;
+	packet.m_hasAbsTimestamp = 0;
+	packet.m_body = pbuf + RTMP_MAX_HEADER_SIZE;
 
-  enc = packet.m_body;
-  enc = AMF_EncodeString(enc, pend, &av_deleteStream);
-  enc = AMF_EncodeNumber(enc, pend, ++r->m_numInvokes);
-  *enc++ = AMF_NULL;
-  enc = AMF_EncodeNumber(enc, pend, dStreamId);
+	LOGD("going to set up encoder packets");
+	enc = packet.m_body;
+	enc = AMF_EncodeString(enc, pend, &av_deleteStream);
+	enc = AMF_EncodeNumber(enc, pend, ++r->m_numInvokes);
+	*enc++ = AMF_NULL;
+	enc = AMF_EncodeNumber(enc, pend, dStreamId);
 
-  packet.m_nBodySize = enc - packet.m_body;
+	packet.m_nBodySize = enc - packet.m_body;
 
-  /* no response expected */
-  return RTMP_SendPacket(r, &packet, FALSE);
+	LOGD("going to return SendPacket");
+	/* no response expected */
+	return RTMP_SendPacket(r, &packet, FALSE);
 }
 
 SAVC(pause);
@@ -3962,70 +3967,87 @@ RTMP_SendPacket(RTMP *r, RTMPPacket *packet, int queue)
   char *buffer, *tbuf = NULL, *toff = NULL;
   int nChunkSize;
   int tlen;
-
+//   LOGD("variables set up");
   if (packet->m_nChannel >= r->m_channelsAllocatedOut)
-    {
-      int n = packet->m_nChannel + 10;
-      RTMPPacket **packets = realloc(r->m_vecChannelsOut, sizeof(RTMPPacket*) * n);
-      if (!packets) {
-        free(r->m_vecChannelsOut);
-        r->m_vecChannelsOut = NULL;
-        r->m_channelsAllocatedOut = 0;
-        return FALSE;
-      }
-      r->m_vecChannelsOut = packets;
-      memset(r->m_vecChannelsOut + r->m_channelsAllocatedOut, 0, sizeof(RTMPPacket*) * (n - r->m_channelsAllocatedOut));
+  {
+	//   LOGD("checked m_channel >= r->m_channelsAllAllocatedOut");
+	  int n = packet->m_nChannel + 10;
+	//   LOGD("declared n= %i, sizeof RTMPPacket is %i, total size is %i", n, sizeof(RTMPPacket *), sizeof(RTMPPacket *) * n);
+	  RTMPPacket **packets = realloc(r->m_vecChannelsOut, sizeof(RTMPPacket *) * n);
+	//   LOGD("going to check !packets");
+	  if (!packets)
+	  {
+		  free(r->m_vecChannelsOut);
+		  r->m_vecChannelsOut = NULL;
+		  r->m_channelsAllocatedOut = 0;
+		  LOGD("no packets, returning false");
+		  return FALSE;
+	  }
+	//   LOGD("settings channels out to packets");
+	  r->m_vecChannelsOut = packets;
+	  memset(r->m_vecChannelsOut + r->m_channelsAllocatedOut, 0, sizeof(RTMPPacket*) * (n - r->m_channelsAllocatedOut));
       r->m_channelsAllocatedOut = n;
     }
 
-  prevPacket = r->m_vecChannelsOut[packet->m_nChannel];
-  if (prevPacket && packet->m_headerType != RTMP_PACKET_SIZE_LARGE)
+	// LOGD("block done");
+	prevPacket = r->m_vecChannelsOut[packet->m_nChannel];
+	if (prevPacket && packet->m_headerType != RTMP_PACKET_SIZE_LARGE)
     {
       /* compress a bit by using the prev packet's attributes */
       if (prevPacket->m_nBodySize == packet->m_nBodySize
 	  && prevPacket->m_packetType == packet->m_packetType
 	  && packet->m_headerType == RTMP_PACKET_SIZE_MEDIUM)
 	packet->m_headerType = RTMP_PACKET_SIZE_SMALL;
+	
 
       if (prevPacket->m_nTimeStamp == packet->m_nTimeStamp
 	  && packet->m_headerType == RTMP_PACKET_SIZE_SMALL)
 	packet->m_headerType = RTMP_PACKET_SIZE_MINIMUM;
       last = prevPacket->m_nTimeStamp;
     }
+	// LOGD("set packet size");
 
-  if (packet->m_headerType > 3)	/* sanity */
+	if (packet->m_headerType > 3) /* sanity */
     {
       RTMP_Log(RTMP_LOGERROR, "sanity failed!! trying to send header of type: 0x%02x.",
 	  (unsigned char)packet->m_headerType);
-      return FALSE;
-    }
+	//   LOGD("some sanity check?");
+	  return FALSE;
+	}
 
-  nSize = packetSize[packet->m_headerType];
-  hSize = nSize; cSize = 0;
-  t = packet->m_nTimeStamp - last;
+	// LOGD("going to set up size vars");
 
-  if (packet->m_body)
+	nSize = packetSize[packet->m_headerType];
+	hSize = nSize;
+	cSize = 0;
+	t = packet->m_nTimeStamp - last;
+	// LOGD("set timestamp last");
+
+	if (packet->m_body)
     {
       header = packet->m_body - nSize;
       hend = packet->m_body;
-    }
-  else
+	//   LOGD("packet->m_body");
+	}
+	else
     {
       header = hbuf + 6;
       hend = hbuf + sizeof(hbuf);
-    }
+	//   LOGD("not packet->m_body");
+	}
 
-  if (packet->m_nChannel > 319)
-    cSize = 2;
-  else if (packet->m_nChannel > 63)
-    cSize = 1;
-  if (cSize)
+	if (packet->m_nChannel > 319)
+		cSize = 2;
+	else if (packet->m_nChannel > 63)
+		cSize = 1;
+	if (cSize)
     {
       header -= cSize;
       hSize += cSize;
     }
+	// LOGD("Made it to 4044");
 
-  if (nSize > 1 && t >= 0xffffff)
+	if (nSize > 1 && t >= 0xffffff)
     {
       header -= 4;
       hSize += 4;
@@ -4045,8 +4067,9 @@ RTMP_SendPacket(RTMP *r, RTMPPacket *packet, int queue)
       break;
     }
   *hptr++ = c;
+//   LOGD("going to check cSize");
   if (cSize)
-    {
+  {
       int tmp = packet->m_nChannel - 64;
       *hptr++ = tmp & 0xff;
       if (cSize == 2)
@@ -4069,13 +4092,12 @@ RTMP_SendPacket(RTMP *r, RTMPPacket *packet, int queue)
 
   if (nSize > 1 && t >= 0xffffff)
     hptr = AMF_EncodeInt32(hptr, hend, t);
-
+//   LOGD("managed to set the amf size whatever that is");
   nSize = packet->m_nBodySize;
   buffer = packet->m_body;
   nChunkSize = r->m_outChunkSize;
 
-  RTMP_Log(RTMP_LOGDEBUG2, "%s: fd=%d, size=%d", __FUNCTION__, r->m_sb.sb_socket,
-      nSize);
+//   LOGD("%s: fd=%d, size=%d", __FUNCTION__, r->m_sb.sb_socket, nSize);
   /* send all chunks in one HTTP request */
   if (r->Link.protocol & RTMP_FEATURE_HTTP)
     {
@@ -4151,9 +4173,10 @@ RTMP_SendPacket(RTMP *r, RTMPPacket *packet, int queue)
       if (!wrote)
         return FALSE;
     }
+	// LOGD("made it to 4173");
 
-  /* we invoked a remote method */
-  if (packet->m_packetType == RTMP_PACKET_TYPE_INVOKE)
+	/* we invoked a remote method */
+	if (packet->m_packetType == RTMP_PACKET_TYPE_INVOKE)
     {
       AVal method;
       char *ptr;
@@ -4171,6 +4194,7 @@ RTMP_SendPacket(RTMP *r, RTMPPacket *packet, int queue)
 
   if (!r->m_vecChannelsOut[packet->m_nChannel])
     r->m_vecChannelsOut[packet->m_nChannel] = malloc(sizeof(RTMPPacket));
+//   LOGD("going to call memcpy");
   memcpy(r->m_vecChannelsOut[packet->m_nChannel], packet, sizeof(RTMPPacket));
   return TRUE;
 }
@@ -4186,17 +4210,31 @@ RTMP_Close(RTMP *r)
 {
   int i;
 
+	//come back
+  LOGD("GOING TO CLOSE");
+
   if (RTMP_IsConnected(r))
     {
-      if (r->m_stream_id > 0)
-        {
-	  i = r->m_stream_id;
-	  r->m_stream_id = 0;
-          if ((r->Link.protocol & RTMP_FEATURE_WRITE))
-	    SendFCUnpublish(r);
-	  SendDeleteStream(r, i);
-	}
-      if (r->m_clientID.av_val)
+		LOGD("RTMP IS Connected");
+		if (r->m_stream_id > 0)
+		{
+			LOGD("r->m_stream_id > 0 is true");
+			i = r->m_stream_id;
+			r->m_stream_id = 0;
+			LOGD("Going to set stream id to 0");
+			if ((r->Link.protocol & RTMP_FEATURE_WRITE)) {
+				LOGD("going to send unpublish");
+				SendFCUnpublish(r);
+			} else {
+				LOGD("whatever that condition was is false");
+			}
+			LOGD("going to send delete stream");
+			SendDeleteStream(r, i);
+	  		LOGD("SENT DELETE STREAM");
+		} else {
+			LOGD("r->m_stream_id > 0 is false");
+		}
+		if (r->m_clientID.av_val)
         {
 	  HTTP_Post(r, RTMPT_CLOSE, "", 1);
 	  free(r->m_clientID.av_val);
@@ -4204,17 +4242,20 @@ RTMP_Close(RTMP *r)
 	  r->m_clientID.av_len = 0;
 	}
       RTMPSockBuf_Close(&r->m_sb);
+	  LOGD("SOCKBUF CLOSE");
     }
+	LOGD("none of the RTMP_isConnected block matters");
 
-  r->m_stream_id = -1;
-  r->m_sb.sb_socket = -1;
-  r->m_nBWCheckCounter = 0;
-  r->m_nBytesIn = 0;
-  r->m_nBytesInSent = 0;
+	r->m_stream_id = -1;
+	r->m_sb.sb_socket = -1;
+	r->m_nBWCheckCounter = 0;
+	r->m_nBytesIn = 0;
+	r->m_nBytesInSent = 0;
 
-  if (r->m_read.flags & RTMP_READ_HEADER) {
-    free(r->m_read.buf);
-    r->m_read.buf = NULL;
+	if (r->m_read.flags & RTMP_READ_HEADER)
+	{
+		free(r->m_read.buf);
+		r->m_read.buf = NULL;
   }
   r->m_read.dataType = 0;
   r->m_read.flags = 0;
@@ -4225,6 +4266,7 @@ RTMP_Close(RTMP *r)
 
   r->m_write.m_nBytesRead = 0;
   RTMPPacket_Free(&r->m_write);
+  LOGD("SEND PACKET FREE");
 
   for (i = 0; i < r->m_channelsAllocatedIn; i++)
     {
@@ -4269,6 +4311,7 @@ RTMP_Close(RTMP *r)
       r->Link.tcUrl.av_val = NULL;
       r->Link.lFlags ^= RTMP_LF_FTCU;
     }
+	LOGD("JUST BEFORE IFDEF CRYPTO");
 
 #ifdef CRYPTO
   if (!(r->Link.protocol & RTMP_FEATURE_WRITE) || (r->Link.pFlags & RTMP_PUB_CLEAN))
@@ -4304,6 +4347,7 @@ RTMP_Close(RTMP *r)
   free(r->Link.playpath0.av_val);
   r->Link.playpath0.av_val = NULL;
 #endif
+LOGD("COMPLETELY DONE");
 }
 
 int
