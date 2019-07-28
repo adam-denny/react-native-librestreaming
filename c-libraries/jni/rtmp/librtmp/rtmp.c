@@ -3968,11 +3968,15 @@ RTMP_SendPacket(RTMP *r, RTMPPacket *packet, int queue)
   int nChunkSize;
   int tlen;
 //   LOGD("variables set up");
+//   LOGD("m_nChannel = %i m_channelsAllocatedOut = %i", packet->m_nChannel, r->m_channelsAllocatedOut);
+  if(r->m_channelsAllocatedOut < 0) {
+	  r->m_channelsAllocatedOut = 0;
+  }
   if (packet->m_nChannel >= r->m_channelsAllocatedOut)
   {
 	//   LOGD("checked m_channel >= r->m_channelsAllAllocatedOut");
 	  int n = packet->m_nChannel + 10;
-	//   LOGD("declared n= %i, sizeof RTMPPacket is %i, total size is %i", n, sizeof(RTMPPacket *), sizeof(RTMPPacket *) * n);
+	// LOGD("declared n= %i, sizeof RTMPPacket is %i, total size is %i, m_vecChannelsOut = %i", n, sizeof(RTMPPacket *), sizeof(RTMPPacket *) * n, r->m_vecChannelsOut);
 	  RTMPPacket **packets = realloc(r->m_vecChannelsOut, sizeof(RTMPPacket *) * n);
 	//   LOGD("going to check !packets");
 	  if (!packets)
@@ -3980,7 +3984,7 @@ RTMP_SendPacket(RTMP *r, RTMPPacket *packet, int queue)
 		  free(r->m_vecChannelsOut);
 		  r->m_vecChannelsOut = NULL;
 		  r->m_channelsAllocatedOut = 0;
-		  LOGD("no packets, returning false");
+		//   LOGD("no packets, returning false");
 		  return FALSE;
 	  }
 	//   LOGD("settings channels out to packets");
@@ -4222,12 +4226,12 @@ RTMP_Close(RTMP *r)
 			i = r->m_stream_id;
 			r->m_stream_id = 0;
 			LOGD("Going to set stream id to 0");
-			if ((r->Link.protocol & RTMP_FEATURE_WRITE)) {
+			//if ((r->Link.protocol & RTMP_FEATURE_WRITE)) {
 				LOGD("going to send unpublish");
 				SendFCUnpublish(r);
-			} else {
-				LOGD("whatever that condition was is false");
-			}
+			// } else {
+			// 	LOGD("whatever that condition was is false");
+			// }
 			LOGD("going to send delete stream");
 			SendDeleteStream(r, i);
 	  		LOGD("SENT DELETE STREAM");

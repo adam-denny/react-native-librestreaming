@@ -126,8 +126,11 @@
  */
  JNIEXPORT jint JNICALL Java_me_lake_librestreaming_rtmp_RtmpClient_close
  (JNIEnv * env,jlong rtmp, jobject thiz) {
- 	RTMP_Close((RTMP*)rtmp);
- 	RTMP_Free((RTMP*)rtmp);
+ 	RTMP *r = (RTMP *) rtmp;
+    if (r != NULL) {
+        RTMP_Close(r);
+        RTMP_Free(r);
+    }
  	return 0;
  }
 
